@@ -8,7 +8,9 @@
 #define PCH_H
 
 // Fügen Sie hier Header hinzu, die vorkompiliert werden sollen.
+#include <algorithm>
 #include <fstream>
+#include <string.h>
 #include <string>
 #include <vector>
 

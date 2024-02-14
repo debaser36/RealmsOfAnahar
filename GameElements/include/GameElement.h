@@ -5,79 +5,32 @@
 
 namespace ROA
 {
+	//  --------------FORWARDS------------------
+	class PickupItem;
+	class Effect;
+	class Unit;
+	class Tile;
+	class StaticElement;
+	class Building;
+	class Weapon;
+	class Race;
+	class GameElement;
+
+	// --------- USEFUL ENUMS AND STATIC FUNCTIONS REGARDING THEM ---------------
 	enum class e_GameElementTypes
 	{
 		UNKNOWN = 0,
-		unit,
-		tile,
-		item,
-		weapon,
 		building,
-		static_other
+		effect,
+		item,
+		other,
+		race,
+		static_other,
+		tile,
+		unit,
+		weapon,
 	};
-	enum class e_GameElementValues
-	{
-		custom = 0,
-		tile_defense,
-		unit_hp,
-		unit_xp,
-		unit_moves,
-		unit_actionCount,
-		unit_movementProfile,
-		weapon_damage,
-		weapon_attackCount,
-		weapon_attackRange,
-		weapon_damageType,
-		player_moneyIncome
-	};
-	enum class e_GameEffectType
-	{
-		custom = 0,
-		valueBasedAbsolut,
-		valueBasedPercentage,
-		functionBased
-	};
-	struct EffectProfile
-	{
-		e_GameEffectType effectType;
-		bool b_isPermanent;
-		unsigned int roundsLeft;
-		std::vector<e_GameElementValues> effectedValues_Names;
-		std::vector<unsigned char> effectedValues_Values;
-		UTIL::FunctionCollection functionsToCall;
-
-		/**
-		 * \brief just a wrapper for GameElementEffect --> use that instead!
-		 */
-		EffectProfile() = default;
-		/**
-		 * \brief please don't copy/move --> use your braincells instead :-) TODO maybe change this later, depending on usage
-		 */
-		EffectProfile(const EffectProfile& other) = delete;
-		/**
-		 * \brief please don't copy/move --> use your braincells instead :-) TODO maybe change this later, depending on usage
-		 */
-		EffectProfile(const EffectProfile&& other) = delete;
-	};
-
-	/**
-	 * \brief This class actually has a lot of similarities to GameElement, regarding reading/storing its information.
-	 * We still use it not in the game-hierarchy, since it can be "assigned" to all the GameElements.
-	 */
-	class GameElementEffect
-	{
-		std::string m_id;
-		EffectProfile m_effectType;
-
-	public:
-		GameElementEffect() = delete;
-		GameElementEffect(std::string id, bool permanent, const unsigned int rounds, const UTIL::FunctionCollection& functions);
-		GameElementEffect(std::string& id, bool permanent, const unsigned int rounds, bool absolutValues, const std::vector<e_GameElementValues>& effectedValues_Names, const std::vector<unsigned char>& effectedValues_Values);
-		bool operator==(const GameElementEffect& other) const;
-		bool operator!=(const GameElementEffect& other) const;
-
-		const std::string& id();
-	};
+	static e_GameElementTypes charToGameElementEnum(const char c);
 
 	struct Coordinate
 	{
@@ -85,53 +38,112 @@ namespace ROA
 		int y = 0;
 	};
 
-	class GameElementImageInformation
-	{
-		void * m_imageInMemory = 0;
-		Coordinate m_size = {0,0};
-		unsigned int m_numberOfSprites = 1;
-		unsigned int m_numberOfAnimations = 1;
-		std::vector<Range> AnimationSpriteIndices;
+	typedef Coordinate position;
+	typedef Coordinate coordinate;
 
-		// TODO constructor and so on
+	/**
+	 * \brief This Class is a combining structures for all the elements, which can't be statically mapped from memory
+	 * It contains strings that are important for describing the GameObject
+	 * It also contains all the references to other GameElement Objects, which are important for this object.
+	 * All the information, that is relevant for GAMEPLAY is **NOT HERE** --> Look for that in the inherited classes or other static fields.
+	 * In most of the cases it surely makes sense to only have ONE list of references, but this task is not here.
+	 * For example, you could have a gameManager, which has all the objects used in one game. The containers here are for SPECIFIC access.
+	 * Also, most of the fields won't be used. We will analyze it later on, if all of this is necessary, but for now: more is better then less.
+	 */ 
+	class GameElementBaseInformation
+	{
+	public: // TODO set private after testing
+		friend class GameElement;
+		// Relevant to describing this GameElement
+		std::string m_id;
+		std::string m_descriptionName;
+		std::string m_inGameName;
+		std::string m_description;
+		std::string m_descriptionImageName;
+		std::string m_inGameImageName;
+		e_GameElementTypes m_type;
+
+		// Containers with references to other GameObjects
+		std::vector<Unit *> v_units;
+		std::vector<PickupItem *> v_pickupItems;
+		std::vector<Effect *> v_effects;
+		std::vector<Tile *> v_tiles;
+		std::vector<Weapon *> v_weapons;
+		std::vector<Building *> v_buildings;
+		std::vector<StaticElement *> v_staticElements;
+		std::vector<Race *> v_races;
+		std::vector<GameElement *> v_otherReferences;
+
+	public:
+		GameElementBaseInformation() = default;
 	};
+
+	
 
 	class GameElement
 	{
-		// Relevant to describing this GameElement
-		std::string m_id;
-		std::string m_name;
-		std::string m_description;
-		std::string m_descriptionImage;
-		e_GameElementTypes m_type;
-		std::vector<GameElementEffect *> m_allEffects;
-		std::vector<GameElementEffect *> m_activeEffects;
-		std::vector<GameElementEffect *> m_effectsToBeCalculated;
+	public: // TODO set private after testing
 
-		// Relevant mostly to game mechanics
-		Coordinate m_position = {0,0};
-		
-		GameElementImageInformation m_spriteSheet;
+		GameElementBaseInformation m_baseInformation;
+		void * m_binaryRepresentation = nullptr;
+		bool m_binaryRepresentationOwnership = false;
+
+		long m_staticMemoryStartIndex = -1;
 
 	public:
-		GameElement();
-		explicit GameElement(std::string id);
-		explicit GameElement(const GameElementEffect other) = delete;
-		GameElement(const GameElement& other) = delete;
-		GameElement(const GameElement&& other) = delete;
-		virtual ~GameElement() = default;
-		const std::string& id();
-		[[nodiscard]] e_GameElementTypes type() const;
+		GameElement() = default; // completly empty;
+		GameElement(void * binaryInformation, std::vector<GameElement>& referenceList);
+		GameElement(const GameElement& other) = delete; // TODO
+		GameElement(const GameElement&& other) = delete; // TODO
+		virtual ~GameElement();
 
-		virtual DEBUG::RETURNCODE loadFromBinary(void * binaryAddr) = 0;
+		 DEBUG::RETURNCODE loadFromBinary(void * binaryAddr, std::vector<GameElement>& gameElementContainer);
+	public:  DEBUG::RETURNCODE mapStaticFromMemory(); // TODO set private
+		 void * getAddrOfInheritanceStart();
+
+
+
+	public:
+		/**
+		 * \brief compares the ID's of the objects. Everything is about ID's!
+		 * \param other other Element
+		 * \return 
+		 */
+		bool operator==(const GameElement& other) const;
+		bool operator==(const std::string& other) const;
 	};
 
-	class Race : public GameElement
+	class PickupItem final : public GameElement
 	{
 		// TODO
 	};
 
-	class Weapon : public GameElement
+	class Effect final : public GameElement
+	{
+		// TODO
+	};
+
+	class Tile final : public GameElement
+	{
+		// TODO
+	};
+
+	class StaticElement : public GameElement
+	{
+		// TODO
+	};
+
+	class Building final : public StaticElement
+	{
+		// TODO
+	};
+
+	class Race final : public GameElement
+	{
+		// TODO
+	};
+
+	class Weapon final : public GameElement
 	{
 		// TODO
 	};
@@ -159,11 +171,14 @@ namespace ROA
 		UnitStats();
 	};
 
-	class Unit : public GameElement
+	class Unit final : public GameElement
 	{
 		UnitStats m_stats;
-		std::vector<Weapon *> m_weapons;
+	public:
+		~Unit() override;
 	};
+
+	
 }
 
 
