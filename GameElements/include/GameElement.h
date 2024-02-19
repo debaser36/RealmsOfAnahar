@@ -2,6 +2,13 @@
 #include "../../DevUtils/include/FunctionCollection.h"
 #include "../../DevUtils/include/GeneralUtil.h"
 
+#define TEST_TRUE
+
+#ifdef TEST_TRUE
+#define private public
+#define protected public
+#endif
+
 
 namespace ROA
 {
@@ -31,6 +38,7 @@ namespace ROA
 		weapon,
 	};
 	static e_GameElementTypes charToGameElementEnum(const char c);
+	static char gameElementEnumToChar(e_GameElementTypes type);
 
 	struct Coordinate
 	{
@@ -76,30 +84,52 @@ namespace ROA
 
 	public:
 		GameElementBaseInformation() = default;
+		GameElementBaseInformation(std::string id, std::string descriptionName, std::string inGameName,
+		                           std::string description, std::string descriptionImageName,
+		                           std::string inGameImageName,
+		                           const e_GameElementTypes type, const std::vector<GameElement *>& refs);
+		GameElementBaseInformation(GameElementBaseInformation & other) =  delete;
+		GameElementBaseInformation(GameElementBaseInformation && other) = delete;
+		[[nodiscard]] unsigned long long calculateSizeOfAllStrings() const;
+		[[nodiscard]] unsigned long long elementCount(std::vector<const GameElement *>& putAllReferencesHere) const;
 	};
 
 	
 
 	class GameElement
 	{
-	public: // TODO set private after testing
-
+	private:
 		GameElementBaseInformation m_baseInformation;
 		void * m_binaryRepresentation = nullptr;
+		unsigned long long m_binaryRepresentationLength = 0;
 		bool m_binaryRepresentationOwnership = false;
-
-		long m_staticMemoryStartIndex = -1;
+		unsigned long long m_staticMemoryStartIndexInBinary = 0;
+	protected:
+		void * m_startingPointStaticData = nullptr; // END OF OBJECT
+		unsigned long long m_staticSize = 0;
+		virtual void initBinaryInformation();
+		
 
 	public:
-		GameElement() = default; // completly empty;
-		GameElement(void * binaryInformation, std::vector<GameElement>& referenceList);
-		GameElement(const GameElement& other) = delete; // TODO
-		GameElement(const GameElement&& other) = delete; // TODO
+		GameElement() = default; // completely empty;
+		GameElement(std::string id, std::string descriptionName, std::string inGameName,
+	            std::string description, std::string descriptionImageName, std::string inGameImageName,
+	            const e_GameElementTypes type, const std::vector<GameElement*>& refs);
+		GameElement(const GameElement& other) = delete; // don't copy Units --> they will have the same ID
+		GameElement(const GameElement&& other) = delete;
 		virtual ~GameElement();
+		GameElement& operator=(const GameElement&) = delete;
+		GameElement& operator=(const GameElement&&) = delete;
 
-		 DEBUG::RETURNCODE loadFromBinary(void * binaryAddr, std::vector<GameElement>& gameElementContainer);
-	public:  DEBUG::RETURNCODE mapStaticFromMemory(); // TODO set private
-		 void * getAddrOfInheritanceStart();
+		[[nodiscard]] e_GameElementTypes type() const;
+		[[nodiscard]] const std::string& id() const;
+
+		DEBUG::RETURNCODE loadFromBinary(void * binaryAddr, std::vector<GameElement>& gameElementContainer);
+		DEBUG::RETURNCODE generateBinary();
+
+	[[nodiscard]] void * getAddressStaticStart() const;
+	private:
+	[[nodiscard]] const void * mapStaticFromMemory() const; // TODO set private
 
 
 
@@ -150,31 +180,42 @@ namespace ROA
 
 	struct UnitStats
 	{
-		unsigned int level;
+	public:
+		unsigned int level = 0;
 
-		unsigned int base_XPNeeded;
-		unsigned int actual_XPNeeded; 
-		unsigned int current_XPNeeded;
+		unsigned int XPNeeded = 0;
 
-		unsigned int base_HP;
-		unsigned int actual_HP;
-		unsigned int current_HP;
+		unsigned int HP = 0;
 
-		unsigned int base_MoveAmount;
-		unsigned int actual_MoveAmount;
-		unsigned int current_MoveAmount;
+		unsigned int MoveAmount = 0;
 
-		unsigned int base_ActionAmount;
-		unsigned int actual_ActionAmount;
-		unsigned int current_ActionAmount;
+		unsigned int ActionAmount = 0;
 
-		UnitStats();
+		UnitStats() = default;
+		UnitStats(unsigned level, unsigned xp, unsigned hp, unsigned moves, unsigned actions);
+		UnitStats(const UnitStats& other) = delete;
+		UnitStats(const UnitStats&& other) = delete;
+		UnitStats& operator=(const UnitStats& other) = delete;
+		UnitStats& operator=(const UnitStats&& other) = delete;
+	
 	};
 
 	class Unit final : public GameElement
 	{
-		UnitStats m_stats;
+	private:
+		UnitStats m_stats_base;
+		UnitStats m_stats_actual;
+	protected:
+		UnitStats m_stats_current;
 	public:
+		Unit();
+		Unit(std::string id, std::string descriptionName, std::string inGameName,
+		                           std::string description, std::string descriptionImageName,
+		                           std::string inGameImageName,
+		                           const e_GameElementTypes type, const std::vector<GameElement *>& refs,
+			unsigned level, unsigned xp, unsigned hp, unsigned moves, unsigned actions);
+	protected:
+		void initBinaryInformation() override;
 		~Unit() override;
 	};
 

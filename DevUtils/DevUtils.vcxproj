@@ -167,12 +167,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\GameElemFileUtil.h" />
     <ClInclude Include="include\GeneralUtil.h" />
     <ClInclude Include="include\FunctionCollection.h" />
     <ClInclude Include="include\ERRORTypeUtil.h" />
     <ClInclude Include="include\pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameElemFileUtil.cpp" />
     <ClCompile Include="src\GeneralUtil.cpp" />
     <ClCompile Include="src\ERRORTypeUtil.cpp" />
     <ClCompile Include="src\FunctionCollection.cpp" />
