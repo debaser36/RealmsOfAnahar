@@ -24,7 +24,9 @@ namespace ROA
 		typedef e_ReturnCode RETURNCODE;
 
 		// ReSharper disable once CppInconsistentNaming
-		static void PRINTERRORMESSAGE(RETURNCODE code, std::ofstream &file);
+		void PRINTERRORMESSAGE(RETURNCODE code, std::ofstream &file);
+		void PRINTERRORMESSAGE(RETURNCODE code, FILE * stream);
+
 	}
 	
 }

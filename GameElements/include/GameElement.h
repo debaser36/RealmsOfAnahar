@@ -1,13 +1,6 @@
 #pragma once
-#include "../../DevUtils/include/FunctionCollection.h"
-#include "../../DevUtils/include/GeneralUtil.h"
-
-#define TEST_TRUE
-
-#ifdef TEST_TRUE
-#define private public
-#define protected public
-#endif
+#include "../../DevUtils/include/DEBUG_PREPROC.h"
+#include "../../DevUtils/include/ERRORTypeUtil.h"
 
 
 namespace ROA

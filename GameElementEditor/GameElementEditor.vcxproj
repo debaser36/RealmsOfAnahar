@@ -94,7 +94,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions); ; ALLEGRO_STATICLINK</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions); ; ALLEGRO_STATICLINK; _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -107,6 +107,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)externalLibs\allegro_deps\lib;$(SolutionDir)externalLibs\allegro\lib;$(SolutionDir)externalLibs\dxsdk\Lib\$(PlatformTarget);$(SolutionDir)out\GameElements\$(Configuration)$(Platform)\;$(SolutionDir)out\DevUtils\$(Configuration)$(Platform)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);dinput8.lib;ddraw.lib;dxguid.lib;winmm.lib;dsound.lib;allegro-debug-static.lib;allegro_monolith-debug-static.lib;allegro_main-static.lib;allegro_memfile-static.lib;allegro_audio-static.lib;allegro_acodec-static.lib;allegro_font-static.lib;allegro_color-static.lib;allegro_dialog-static.lib;allegro_image-static.lib;allegro_physfs.lib;allegro_primitives-static.lib;allegro_ttf-static.lib;allegro_video-static.lib;dumb.lib;FLAC.lib;freetype.lib;jpeg.lib;libpng16.lib;ogg.lib;opus.lib;opusfile.lib;physfs.lib;sharpyuv.lib;theoradec.lib;vorbis.lib;vorbisfile.lib;webp.lib;webpdecoder.lib;webpdemux.lib;zlib.lib;opengl32.lib;Shlwapi.lib;GameElements.lib;DevUtils.lib</AdditionalDependencies>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -115,7 +116,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions); ; ALLEGRO_STATICLINK</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions); ; ALLEGRO_STATICLINK; _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -130,13 +131,14 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)externalLibs\allegro_deps\lib;$(SolutionDir)externalLibs\allegro\lib;$(SolutionDir)externalLibs\dxsdk\Lib\$(PlatformTarget);$(SolutionDir)out\GameElements\$(Configuration)$(Platform)\;$(SolutionDir)out\DevUtils\$(Configuration)$(Platform)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);dinput8.lib;ddraw.lib;dxguid.lib;winmm.lib;dsound.lib;allegro-debug-static.lib;allegro_monolith-debug-static.lib;allegro_main-static.lib;allegro_memfile-static.lib;allegro_audio-static.lib;allegro_acodec-static.lib;allegro_font-static.lib;allegro_color-static.lib;allegro_dialog-static.lib;allegro_image-static.lib;allegro_physfs.lib;allegro_primitives-static.lib;allegro_ttf-static.lib;allegro_video-static.lib;dumb.lib;FLAC.lib;freetype.lib;jpeg.lib;libpng16.lib;ogg.lib;opus.lib;opusfile.lib;physfs.lib;sharpyuv.lib;theoradec.lib;vorbis.lib;vorbisfile.lib;webp.lib;webpdecoder.lib;webpdemux.lib;zlib.lib;opengl32.lib;Shlwapi.lib;GameElements.lib;DevUtils.lib</AdditionalDependencies>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions); ; ALLEGRO_STATICLINK</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions); ; ALLEGRO_STATICLINK; _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -149,6 +151,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)externalLibs\allegro_deps\lib;$(SolutionDir)externalLibs\allegro\lib;$(SolutionDir)externalLibs\dxsdk\Lib\$(PlatformTarget);$(SolutionDir)out\GameElements\$(Configuration)$(Platform)\;$(SolutionDir)out\DevUtils\$(Configuration)$(Platform)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);dinput8.lib;ddraw.lib;dxguid.lib;winmm.lib;dsound.lib;allegro-debug-static.lib;allegro_monolith-debug-static.lib;allegro_main-static.lib;allegro_memfile-static.lib;allegro_audio-static.lib;allegro_acodec-static.lib;allegro_font-static.lib;allegro_color-static.lib;allegro_dialog-static.lib;allegro_image-static.lib;allegro_physfs.lib;allegro_primitives-static.lib;allegro_ttf-static.lib;allegro_video-static.lib;dumb.lib;FLAC.lib;freetype.lib;jpeg.lib;libpng16.lib;ogg.lib;opus.lib;opusfile.lib;physfs.lib;sharpyuv.lib;theoradec.lib;vorbis.lib;vorbisfile.lib;webp.lib;webpdecoder.lib;webpdemux.lib;zlib.lib;opengl32.lib;Shlwapi.lib;GameElements.lib;DevUtils.lib</AdditionalDependencies>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -157,7 +160,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions); ; ALLEGRO_STATICLINK</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions); ; ALLEGRO_STATICLINK; _CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -172,6 +175,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)externalLibs\allegro_deps\lib;$(SolutionDir)externalLibs\allegro\lib;$(SolutionDir)externalLibs\dxsdk\Lib\$(PlatformTarget);$(SolutionDir)out\GameElements\$(Configuration)$(Platform)\;$(SolutionDir)out\DevUtils\$(Configuration)$(Platform)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);dinput8.lib;ddraw.lib;dxguid.lib;winmm.lib;dsound.lib;allegro-debug-static.lib;allegro_monolith-debug-static.lib;allegro_main-static.lib;allegro_memfile-static.lib;allegro_audio-static.lib;allegro_acodec-static.lib;allegro_font-static.lib;allegro_color-static.lib;allegro_dialog-static.lib;allegro_image-static.lib;allegro_physfs.lib;allegro_primitives-static.lib;allegro_ttf-static.lib;allegro_video-static.lib;dumb.lib;FLAC.lib;freetype.lib;jpeg.lib;libpng16.lib;ogg.lib;opus.lib;opusfile.lib;physfs.lib;sharpyuv.lib;theoradec.lib;vorbis.lib;vorbisfile.lib;webp.lib;webpdecoder.lib;webpdemux.lib;zlib.lib;opengl32.lib;Shlwapi.lib;GameElements.lib;DevUtils.lib</AdditionalDependencies>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

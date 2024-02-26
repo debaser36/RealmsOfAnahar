@@ -40,7 +40,7 @@ std::vector<ResolutionInformation> ROA::UTIL::getAllResolutions()
 	m.dmDriverExtra = 1024;
 
 	int i = 0;
-	while(EnumDisplaySettingsA(NULL, i, &m))
+	while(EnumDisplaySettingsA(nullptr, i, &m))
 	{
 		i++;
 		allResolutions.emplace_back(m.dmPelsWidth, m.dmPelsHeight, m.dmBitsPerPel, m.dmDisplayFrequency);
@@ -54,8 +54,8 @@ ResolutionInformation ROA::UTIL::getCurrentResolution()
 	m.dmSize = sizeof(DEVMODE);
 	m.dmDriverExtra = 1024;
 
-	EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &m);
-	return ResolutionInformation(m.dmPelsWidth, m.dmPelsHeight, m.dmBitsPerPel, m.dmDisplayFrequency);
+	EnumDisplaySettingsA(nullptr, ENUM_CURRENT_SETTINGS, &m);
+	return {m.dmPelsWidth, m.dmPelsHeight, m.dmBitsPerPel, m.dmDisplayFrequency};
 }
 
 ResolutionInformation::ResolutionInformation(unsigned w, unsigned h, unsigned bbP, unsigned freq) : 

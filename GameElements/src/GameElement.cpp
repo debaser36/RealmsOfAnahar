@@ -1,7 +1,7 @@
 // ReSharper disable CppClangTidyBugproneNotNullTerminatedResult
 #include "pch.h"
-
 #include "GameElement.h"
+
 
 constexpr long long STATIC_BINARY_SIZE = ((42)+(6*sizeof(int)));
 /**

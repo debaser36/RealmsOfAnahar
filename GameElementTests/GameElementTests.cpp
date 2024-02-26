@@ -1,9 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
-#define private public
-#define protected public
-
 #include "GameElement.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
