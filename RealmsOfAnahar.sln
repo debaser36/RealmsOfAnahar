@@ -15,6 +15,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameElementTests", "GameEle
 		{9F5C5D9C-A95D-4919-85E9-311C1EE51A8D} = {9F5C5D9C-A95D-4919-85E9-311C1EE51A8D}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleTestWindowMenu", "SimpleTestWindowMenu\SimpleTestWindowMenu.vcxproj", "{9C5CF5D2-692C-4E7D-8ADB-494B26AC72ED}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameElementEditor", "GameElementEditor\GameElementEditor.vcxproj", "{CA842551-5BC2-484E-B8D5-36C0826E5EC1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F5C5D9C-A95D-4919-85E9-311C1EE51A8D} = {9F5C5D9C-A95D-4919-85E9-311C1EE51A8D}
+		{A21BB448-7284-4642-B269-5C500339C007} = {A21BB448-7284-4642-B269-5C500339C007}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -47,6 +55,22 @@ Global
 		{BCCAB3D9-A0D4-4586-A5D7-46CDDE5B46F5}.Release|x64.Build.0 = Release|x64
 		{BCCAB3D9-A0D4-4586-A5D7-46CDDE5B46F5}.Release|x86.ActiveCfg = Release|Win32
 		{BCCAB3D9-A0D4-4586-A5D7-46CDDE5B46F5}.Release|x86.Build.0 = Release|Win32
+		{9C5CF5D2-692C-4E7D-8ADB-494B26AC72ED}.Debug|x64.ActiveCfg = Debug|x64
+		{9C5CF5D2-692C-4E7D-8ADB-494B26AC72ED}.Debug|x64.Build.0 = Debug|x64
+		{9C5CF5D2-692C-4E7D-8ADB-494B26AC72ED}.Debug|x86.ActiveCfg = Debug|Win32
+		{9C5CF5D2-692C-4E7D-8ADB-494B26AC72ED}.Debug|x86.Build.0 = Debug|Win32
+		{9C5CF5D2-692C-4E7D-8ADB-494B26AC72ED}.Release|x64.ActiveCfg = Release|x64
+		{9C5CF5D2-692C-4E7D-8ADB-494B26AC72ED}.Release|x64.Build.0 = Release|x64
+		{9C5CF5D2-692C-4E7D-8ADB-494B26AC72ED}.Release|x86.ActiveCfg = Release|Win32
+		{9C5CF5D2-692C-4E7D-8ADB-494B26AC72ED}.Release|x86.Build.0 = Release|Win32
+		{CA842551-5BC2-484E-B8D5-36C0826E5EC1}.Debug|x64.ActiveCfg = Debug|x64
+		{CA842551-5BC2-484E-B8D5-36C0826E5EC1}.Debug|x64.Build.0 = Debug|x64
+		{CA842551-5BC2-484E-B8D5-36C0826E5EC1}.Debug|x86.ActiveCfg = Debug|Win32
+		{CA842551-5BC2-484E-B8D5-36C0826E5EC1}.Debug|x86.Build.0 = Debug|Win32
+		{CA842551-5BC2-484E-B8D5-36C0826E5EC1}.Release|x64.ActiveCfg = Release|x64
+		{CA842551-5BC2-484E-B8D5-36C0826E5EC1}.Release|x64.Build.0 = Release|x64
+		{CA842551-5BC2-484E-B8D5-36C0826E5EC1}.Release|x86.ActiveCfg = Release|Win32
+		{CA842551-5BC2-484E-B8D5-36C0826E5EC1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

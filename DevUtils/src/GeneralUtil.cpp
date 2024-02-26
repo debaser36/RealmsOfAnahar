@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "GeneralUtil.h"
 
+using namespace ROA::UTIL;
+
 /**
  * \brief 
  * \return absolut difference between start and end
@@ -27,3 +29,37 @@ bool Range::isRangeNatural() const
  * \return true, if start <= end
  */
 bool Range::isRangeLeftToRight() const { return (end - start) >= 0;  }
+
+
+std::vector<ResolutionInformation> ROA::UTIL::getAllResolutions()
+{
+	std::vector<ResolutionInformation> allResolutions;
+	
+	DEVMODEA m;
+	m.dmSize = sizeof(DEVMODE);
+	m.dmDriverExtra = 1024;
+
+	int i = 0;
+	while(EnumDisplaySettingsA(NULL, i, &m))
+	{
+		i++;
+		allResolutions.emplace_back(m.dmPelsWidth, m.dmPelsHeight, m.dmBitsPerPel, m.dmDisplayFrequency);
+	}
+	return allResolutions;
+}
+
+ResolutionInformation ROA::UTIL::getCurrentResolution()
+{
+	DEVMODEA m;
+	m.dmSize = sizeof(DEVMODE);
+	m.dmDriverExtra = 1024;
+
+	EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &m);
+	return ResolutionInformation(m.dmPelsWidth, m.dmPelsHeight, m.dmBitsPerPel, m.dmDisplayFrequency);
+}
+
+ResolutionInformation::ResolutionInformation(unsigned w, unsigned h, unsigned bbP, unsigned freq) : 
+	width(w), height(h), bbP(bbP), frequenzy(freq)
+{
+
+}

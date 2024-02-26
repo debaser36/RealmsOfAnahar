@@ -4,15 +4,22 @@
 // However, files listed here are ALL re-compiled if any one of them is updated between builds.
 // Do not add files here that you will be updating frequently as this negates the performance advantage.
 
-#ifndef PCH_H
-#define PCH_H
+#ifndef PCHGE_H
+#define PCHGE_H
 
 // add headers that you want to pre-compile here
+#include <iostream>
 #include <fstream>
 #include <string.h>
 #include <string>
 #include <vector>
+#include <windows.h>
 
+#include "GameElement.h"
+
+#include "allegro5/allegro.h"
 #include "Windows.h"
 
-#endif //PCH_H
+
+
+#endif //PCHGE_H
